@@ -43,7 +43,7 @@ export default function TodoListRedux() {
         {listTodos.map((item, idx) => (
           <ul key={idx}>
             <li>{item.todo}</li>
-            <button className="btn btn-success ms-auto" onClick={() => dispatch(delTodo(item.id))}>
+            <button className="btn btn-success ms-auto" onClick={() => delTodo(item.id, dispatch)}>
               delete your activity
             </button>
           </ul>

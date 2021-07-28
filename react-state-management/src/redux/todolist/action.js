@@ -1,6 +1,5 @@
 //Actions Constant
 import axios from "axios";
-import { dispatch } from "react";
 export const ADD = "ADD_TODO";
 export const DEL = "DELETE_TODO";
 export const LOAD = "LOAD_TODO";
@@ -23,7 +22,7 @@ export const addTodo = async (dispatch, todo) => {
   }); //manipulasi state
 };
 
-export const delTodo = async (dispatch, id) => {
+export const delTodo = async (id, dispatch) => {
   await axios.delete(`http://localhost:3006/todos/${id}`);
   await dispatch({
     type: "DELETE_TODO",
