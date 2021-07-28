@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"; //ini useDispatch dan useSelector dari react-redux
-
-export default function TodoList() {
+import { addTodo, delTodo } from "./action";
+import "./style.css";
+import { uuid } from "uuidv4";
+export default function TodoListRedux() {
   const [todo, setTodo] = useState(""); //todo untuk menyimpan hasil dari element input
   const dispatch = useDispatch();
   const listTodos = useSelector((state) => state.todos.todos);
@@ -10,28 +12,39 @@ export default function TodoList() {
   const submit = (e) => {
     e.preventDefault();
     if (todo === "") return;
-    dispatch(addTodo(todo));
+    const newTodo = {
+      id: uuid(), //Math.random() akan generate random number dari 0 < 1
+      todo: todo,
+    };
+    addTodo(dispatch, newTodo);
     setTodo("");
   };
 
   return (
     <div>
-      <form onSubmit={submit}>
-        <input
-          type="text"
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}
-          placeholder="Masukan Todolist..."
-        />
-        <button>Submit</button>
-      </form>
-
-      {listTodos.map((item, idx) => (
-        <ul key={idx}>
-          <li>{item.todo}</li>
-          <button onClick={() => dispatch(delTodo(item.id))}>X</button>
-        </ul>
-      ))}
+      <div className="input">
+        <form onSubmit={submit}>
+          <div className="mb-3">
+            <label Htmlfor="exampleInputEmail1" className="form-label">
+              Input Your Activity
+            </label>
+            <input type="Text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e) => setTodo(e.target.value)} value={todo} />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </form>
+      </div>
+      <div className="post">
+        {listTodos.map((item, idx) => (
+          <ul key={idx}>
+            <li>{item.todo}</li>
+            <button className="btn btn-success ms-auto" onClick={() => dispatch(delTodo(item.id))}>
+              delete your activity
+            </button>
+          </ul>
+        ))}
+      </div>
     </div>
   );
 }

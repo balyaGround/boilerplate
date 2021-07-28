@@ -1,9 +1,9 @@
-import React, {createContext} from 'react';
-import ReactDOM from 'react-dom';
+import React, { createContext } from "react";
+import ReactDOM from "react-dom";
 // import './index.css';
-import App from './App';
-import TodoState from './ContextAPI/TodoState'; //TodoState ditulis di index agar menjadi global state
-
+import App from "./App";
+import TodoState from "./ContextAPI/TodoState"; //TodoState ditulis di index agar menjadi global state
+import "bootstrap/dist/css/bootstrap.css";
 //data themeColors berupa property dan value css yg diubah ke dalam state
 // const themeColors = {
 //   gold: "#ffc107",
@@ -19,7 +19,7 @@ ReactDOM.render(
     <TodoState>
       <App />
     </TodoState>
-  </div>
-  
-,document.getElementById('root'));
+  </div>,
 
+  document.getElementById("root")
+);

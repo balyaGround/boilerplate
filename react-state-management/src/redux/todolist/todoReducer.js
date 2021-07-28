@@ -1,4 +1,5 @@
-import { ADD, DEL, LOAD } from "./actions.js";
+import { uuid } from "uuidv4";
+import { ADD, DEL, LOAD } from "./action";
 
 //initial stata /kondisi awal -> ketika object di load pertama kali
 const initState = {
@@ -9,24 +10,20 @@ const initState = {
 export const todoReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD:
-      const { id, todo } = action.payload;
       return {
         ...state,
-        todos: [
-          ...state.todos,
-          {
-            id: id,
-            todo: todo,
-          },
-        ],
+        todos: [...state.todos, action.payload],
       };
     case DEL:
-      const afterDelete = state.todos.filter(
-        (item) => item.id !== action.payload
-      );
+      const afterDelete = state.todos.filter((item) => item.id !== action.payload);
       return {
         ...state,
         todos: afterDelete,
+      };
+    case LOAD:
+      return {
+        ...state,
+        todos: [...state.todos],
       };
     default:
       return state;

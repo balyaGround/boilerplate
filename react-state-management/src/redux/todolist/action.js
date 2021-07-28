@@ -1,24 +1,32 @@
 //Actions Constant
+import axios from "axios";
+import { dispatch } from "react";
 export const ADD = "ADD_TODO";
 export const DEL = "DELETE_TODO";
 export const LOAD = "LOAD_TODO";
 
-//Actions
-const addTodo = (todo) => ({
-  type: ADD,
-  payload: {
-    id: Math.random().toString(),
-    todo: todo,
-  },
-});
+export const loadTodo = async () => {
+  const res = await axios.get("http://localhost:3006/todos");
+  const dataAPI = await res.data;
+  await dispatch({
+    type: "LOAD_TODO",
+    payload: dataAPI,
+  });
+  console.log(res.data);
+};
 
-const delTodo = (id) => ({
-  type: DEL,
-  payload: id,
-});
+export const addTodo = async (dispatch, todo) => {
+  await axios.post("http://localhost:3006/todos", todo); //manipulasi server
+  await dispatch({
+    type: "ADD_TODO",
+    payload: todo,
+  }); //manipulasi state
+};
 
-const loadTodo = (id) => ({
-  type: LOAD,
-  payload: id,
-  todo: todo,
-});
+export const delTodo = async (id) => {
+  await axios.delete(`http://localhost:3006/todos/${id}`);
+  await dispatch({
+    type: "DELETE_TODO",
+    payload: id,
+  });
+};
