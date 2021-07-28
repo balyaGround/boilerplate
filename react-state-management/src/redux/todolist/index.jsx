@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"; //ini useDispatch dan useSelector dari react-redux
-import { addTodo, delTodo } from "./action";
+import { addTodo, delTodo, loadTodo } from "./action";
 import "./style.css";
 import { uuid } from "uuidv4";
 export default function TodoListRedux() {
@@ -19,6 +19,10 @@ export default function TodoListRedux() {
     addTodo(dispatch, newTodo);
     setTodo("");
   };
+
+  useEffect(() => {
+    loadTodo(dispatch, todo);
+  }, []);
 
   return (
     <div>

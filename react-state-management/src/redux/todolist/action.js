@@ -5,7 +5,7 @@ export const ADD = "ADD_TODO";
 export const DEL = "DELETE_TODO";
 export const LOAD = "LOAD_TODO";
 
-export const loadTodo = async () => {
+export const loadTodo = async (dispatch) => {
   const res = await axios.get("http://localhost:3006/todos");
   const dataAPI = await res.data;
   await dispatch({
@@ -23,7 +23,7 @@ export const addTodo = async (dispatch, todo) => {
   }); //manipulasi state
 };
 
-export const delTodo = async (id) => {
+export const delTodo = async (dispatch, id) => {
   await axios.delete(`http://localhost:3006/todos/${id}`);
   await dispatch({
     type: "DELETE_TODO",

@@ -18,12 +18,12 @@ export const todoReducer = (state = initState, action) => {
       const afterDelete = state.todos.filter((item) => item.id !== action.payload);
       return {
         ...state,
-        todos: afterDelete,
+        todos: [afterDelete],
       };
     case LOAD:
       return {
         ...state,
-        todos: [...state.todos],
+        todos: action.payload,
       };
     default:
       return state;
